@@ -1,0 +1,1 @@
+/Users/depakborhara/Desktop/neovimSetups/dotfiles/home/.zshrc
