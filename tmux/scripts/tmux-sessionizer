@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# Check if we are inside a tmux session; change behavior accordingly
+[[ -n "$TMUX" ]] && change="switch-client" || change="attach-session"
+
+# If an argument is provided (name of the session)
+if [ "$1" ]; then
+    # Try switching to or attaching the named session; if it doesn't exist, create it
+    tmux $change -t "$1" 2>/dev/null || {
+        tmux new-session -d -s "$1" && tmux $change -t "$1"
+    }
+    exit 0
+fi
+
+# If no argument is provided, use fzf to list available sessions and allow user to choose
+session=$(tmux list-sessions -F "#{session_name}" 2>/dev/null | fzf --exit-0)
+
+if [ "$session" ]; then
+    tmux $change -t "$session"
+else
+    echo "No sessions found."
+fi
