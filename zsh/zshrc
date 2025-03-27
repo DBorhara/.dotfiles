@@ -1,0 +1,43 @@
+export EDITOR="nvim"
+
+# Alias
+alias so="source ~/.zshrc"
+
+# bat(better cat)
+alias cat='bat'
+alias fzf='fzf --preview "bat --color=always --style=numbers --line-range=:500 {}"'
+tailbat() {
+  tail -f "$1" | bat --paging=never --language=log --plain
+}
+
+# nvim
+alias zshrc="nvim ~/.zshrc"
+alias cfgnvim="nvim ~/.config/nvim/"
+
+# neofetch
+alias neofetch="neofetch --backend iterm2 --source ~/.cache/thumbnails/neofetch/waifu2.png"
+
+# eza (ls replacement)
+alias ls='eza -al --icons --git --group-directories-first --time-style=long-iso'
+
+# tre (tree replacement)
+tre() { command tre "$@" -e && source "/tmp/tre_aliases_$USER" 2>/dev/null; }
+alias tree='tre'
+
+# zoxide (better cd)
+alias cd='z'
+
+#--------
+#
+# Evals
+# Homebrew
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
+# Z Oxide
+eval "$(zoxide init zsh)"
+
+# fzf(fuzzy finding)
+source <(fzf --zsh)
+
+export EZA_CONFIG_DIR="$HOME/.config/eza"
+
