@@ -1,0 +1,59 @@
+export EDITOR="nvim"
+
+# zsh-autocomplete
+# source /opt/homebrew/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+
+# Java Language OpenJDK
+export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
+
+
+# bat(better cat)
+alias cat='bat'
+alias fzf='fzf --preview "bat --color=always --style=numbers --line-range=:500 {}"'
+tailbat() {
+  tail -f "$1" | bat --paging=never --language=log --plain
+}
+
+# neofetch
+alias neofetch="neofetch --backend iterm2 --source ~/.cache/thumbnails/neofetch/waifu2.png"
+alias cfgneofetch="nvim ~/.config/neofetch/"
+
+# nvim
+alias cfgnvim="nvim ~/.config/nvim/"
+alias cfgxnvim="NVIM_APPNAME=nvim_scratch_build nvim ~/.config/nvim_scratch_build"
+
+# eza (ls replacement)
+alias ls='eza -al --hyperlink --icons --git -G --group-directories-first --time-style=long-iso'
+alias cfgeza="nvim ~/.config/eza"
+
+# tmux (terminal multiplexer)
+alias cfgtmux="nvim ~/.config/tmux"
+
+# tre (tree replacement)
+tre() { command tre "$@" -e && source "/tmp/tre_aliases_$USER" 2>/dev/null; }
+alias tree='tre'
+
+# wezterm
+alias cfgwezterm="nvim ~/.config/wezterm"
+
+# zoxide (better cd)
+alias cd='z'
+
+# Alias
+alias zshrc="nvim ~/.zshrc"
+alias so="source ~/.zshrc"
+
+#--------
+# Evals
+# Homebrew
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
+# Z Oxide
+eval "$(zoxide init zsh)"
+
+# fzf(fuzzy finding)
+source <(fzf --zsh)
+
+
+export EZA_CONFIG_DIR="$HOME/.config/eza"
+
