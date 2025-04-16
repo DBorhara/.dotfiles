@@ -1,0 +1,6 @@
+base = "luajit"
+
+[globals]
+vim = true
+require = true
+

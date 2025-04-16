@@ -1,7 +1,7 @@
 return {
-    url = "https://github.com/williamboman/mason.nvim.git",
-    name = 'mason.nvim',
-    config = function()
-        require("mason").setup()
-    end
+	name = 'mason.nvim',
+	url = 'https://github.com/williamboman/mason.nvim.git',
+	config = function()
+		require('mason').setup()
+	end,
 }
