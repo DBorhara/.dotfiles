@@ -1,7 +1,10 @@
 return {
 	name = 'blink.cmp',
 	url = 'https://github.com/Saghen/blink.cmp.git',
-	dependencies = { 'rafamadriz/friendly-snippets' },
+	dependencies = {
+		name = 'friendly-snippets',
+		url = 'https://github.com/rafamadriz/friendly-snippets.git',
+	},
 	version = '1.*',
 	---@module 'blink.cmp'
 	---@type blink.cmp.Config

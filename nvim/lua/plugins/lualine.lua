@@ -1,7 +1,10 @@
 return {
 	name = 'lualine.nvim',
 	url = 'https://github.com/nvim-lualine/lualine.nvim.git',
-	dependencies = { 'nvim-tree/nvim-web-devicons' },
+	dependencies = {
+		name = 'nvim-web-devicons',
+		url = 'https://github.com/nvim-tree/nvim-web-devicons',
+	},
 	config = function()
 		require('lualine').setup({
 			options = {

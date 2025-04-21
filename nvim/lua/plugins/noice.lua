@@ -6,11 +6,13 @@ return {
 		-- add any options here
 	},
 	dependencies = {
-		-- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
-		'MunifTanjim/nui.nvim',
-		-- OPTIONAL:
-		--   `nvim-notify` is only needed, if you want to use the notification view.
-		--   If not available, we use `mini` as the fallback
-		'rcarriga/nvim-notify',
+		{
+			name = 'nui.nvim',
+			url = 'https://github.com/MunifTanjim/nui.nvim.git',
+		},
+		{
+			name = 'nvim-notify',
+			url = 'https://github.com/rcarriga/nvim-notify.git',
+		},
 	},
 }
