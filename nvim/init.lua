@@ -17,4 +17,12 @@ require('config.commands')
 ------------
 vim.g.have_nerd_font = true
 
-vim.lsp.enable({ 'luals', 'jdtls', 'pyright' })
+-------
+-- LSP
+-------
+vim.lsp.enable({ 'luals', 'ltex-ls-plus', 'jdtls', 'pyright' })
+
+-----------
+-- Obsidian
+-----------
+vim.o.conceallevel = 2

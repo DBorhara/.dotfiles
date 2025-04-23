@@ -25,6 +25,11 @@ return {
 			mods = 'CTRL|SHIFT',
 			action = wezterm.action.SendString('nvim\n'),
 		},
+		{
+			key = 'Tab',
+			mods = 'SHIFT',
+			action = wezterm.action.SendString('\x1b[Z'),
+		},
 	},
 	set_environment_variables = {
 		WEZTERM_ACTIVE = '1',

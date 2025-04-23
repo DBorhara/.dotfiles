@@ -5,9 +5,10 @@ return {
 	cmd = { 'ConformInfo' },
 	opts = {
 		formatters_by_ft = {
-			lua = { 'stylua' },
-			python = { 'isort', 'black' },
 			java = { 'google-java-format' },
+			lua = { 'stylua' },
+			markdown = { 'markdownlint' },
+			python = { 'isort', 'black' },
 		},
 		default_format_opts = {
 			lsp_format = 'fallback',

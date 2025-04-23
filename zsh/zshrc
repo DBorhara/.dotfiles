@@ -1,11 +1,23 @@
 export EDITOR="nvim"
 
-# zsh-autocomplete
-# source /opt/homebrew/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+# Zsh-autocomplete
+autoload -Uz menu-select
+zmodload zsh/complist
+# Make Tab and Shift+Tab move through listed completions on the command line
+bindkey '^I' menu-complete
+bindkey "$terminfo[kcbt]" reverse-menu-complete
+# When inside the menu, make Tab and Shift+Tab move the selection (instead of exiting the menu)
+bindkey -M menuselect '^I' menu-complete
+bindkey -M menuselect "$terminfo[kcbt]" reverse-menu-complete
+# Optional: Keep ← and → working as normal (moving cursor)
+bindkey -M menuselect '^[[D' .backward-char '^[OD' .backward-char
+bindkey -M menuselect '^[[C' .forward-char  '^[OC' .forward-char
+# Optional: Pressing Enter always runs the command, even from within the menu
+bindkey -M menuselect '^M' .accept-line
+source /opt/homebrew/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh
 
 # Java Language OpenJDK
 export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
-
 
 # bat(better cat)
 alias cat='bat'
@@ -22,12 +34,22 @@ alias cfgneofetch="nvim ~/.config/neofetch/"
 alias cfgnvim="nvim ~/.config/nvim/"
 alias cfgxnvim="NVIM_APPNAME=nvim_scratch_build nvim ~/.config/nvim_scratch_build"
 
+# obsidian open
+alias obsidian="nvim ~/Documents/Obsidian/Rutgers/Rutgers\ Spring\ 2025/"
+
 # eza (ls replacement)
 alias ls='eza -al --hyperlink --icons --git -G --group-directories-first --time-style=long-iso'
+compdef eza=ls
 alias cfgeza="nvim ~/.config/eza"
 
 # tmux (terminal multiplexer)
 alias cfgtmux="nvim ~/.config/tmux"
+if [[ -n "$TMUX" ]]; then
+  neofetch --image_backend chafa
+else
+  neofetch
+fi
+
 
 # tre (tree replacement)
 tre() { command tre "$@" -e && source "/tmp/tre_aliases_$USER" 2>/dev/null; }
@@ -57,3 +79,4 @@ source <(fzf --zsh)
 
 export EZA_CONFIG_DIR="$HOME/.config/eza"
 
+neofetch

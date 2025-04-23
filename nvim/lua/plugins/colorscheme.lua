@@ -4,9 +4,6 @@ return {
 		name = 'moonfly',
 		lazy = false,
 		priority = 1000,
-		config = function()
-			vim.cmd('colorscheme moonfly')
-		end,
 	},
 	{
 		url = 'https://github.com/folke/tokyonight.nvim',
@@ -19,6 +16,14 @@ return {
 	{
 		url = 'https://github.com/scottmckendry/cyberdream.nvim',
 		name = 'cyberdream',
-		opts = { variant = 'auto' },
+		opts = { variant = 'auto', transparent = false },
+		config = function(_, opts)
+			require('cyberdream').setup(opts)
+			vim.api.nvim_set_hl(0, 'ColorColumn', { bg = '#161821' })
+			vim.api.nvim_set_hl(0, 'NormalNC', { bg = '#161821' })
+			vim.api.nvim_set_hl(0, 'NormalFloat', { bg = '#1a1c25' }) -- for floating windows
+
+			vim.cmd('colorscheme cyberdream')
+		end,
 	},
 }

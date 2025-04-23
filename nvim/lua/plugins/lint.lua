@@ -3,8 +3,9 @@ return {
 	url = 'https://github.com/mfussenegger/nvim-lint.git',
 	init = function()
 		require('lint').linters_by_ft = {
-			lua = { 'selene' },
 			java = { 'checkstyle' },
+			lua = { 'selene' },
+			markdown = { 'markdownlint' },
 			python = { 'pylint' },
 		}
 	end,

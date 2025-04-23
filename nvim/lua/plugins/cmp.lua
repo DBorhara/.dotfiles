@@ -9,8 +9,22 @@ return {
 	---@module 'blink.cmp'
 	---@type blink.cmp.Config
 	opts = {
+		signature = { enabled = true },
 		-- See :h blink-cmp-config-keymap for defining your own keymap
-		keymap = { preset = 'default' },
+		keymap = {
+			preset = 'none',
+			['<C-space>'] = {
+				'show',
+				'show_documentation',
+				'hide_documentation',
+			},
+			['<C-k>'] = { 'show_signature', 'hide_signature', 'fallback' },
+			['<Tab>'] = { 'select_next', 'fallback' },
+			['<S-Tab>'] = { 'select_prev', 'fallback' },
+			['<CR>'] = { 'select_and_accept', 'fallback' },
+			['<C-u>'] = { 'scroll_documentation_up', 'fallback' },
+			['<C-d>'] = { 'scroll_documentation_down', 'fallback' },
+		},
 		appearance = {
 			nerd_font_variant = 'mono',
 		},
@@ -31,7 +45,7 @@ return {
 	},
 	opts_extend = { 'sources.default' },
 	config = function(_, opts)
-		require('blink-cmp').setup()
+		require('blink-cmp').setup(opts)
 		local colors = {
 			bg = '#232136',
 			fg = '#e0def4',
