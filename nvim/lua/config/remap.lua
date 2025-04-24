@@ -30,6 +30,11 @@ vim.keymap.set(
 )
 vim.keymap.set('n', '<Esc>', '<CMD>nohlsearch<CR>')
 
+-----------
+-- Commands
+-----------
+vim.cmd('command! Q q')
+
 ----------
 -- Editing
 ----------

@@ -37,6 +37,9 @@ alias cfgxnvim="NVIM_APPNAME=nvim_scratch_build nvim ~/.config/nvim_scratch_buil
 # obsidian open
 alias obsidian="nvim ~/Documents/Obsidian/Rutgers/Rutgers\ Spring\ 2025/"
 
+# leetcode
+alias leetcode="nvim leetcode.nvim"
+
 # eza (ls replacement)
 alias ls='eza -al --hyperlink --icons --git -G --group-directories-first --time-style=long-iso'
 compdef eza=ls

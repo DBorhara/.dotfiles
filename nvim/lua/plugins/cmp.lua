@@ -10,7 +10,6 @@ return {
 	---@type blink.cmp.Config
 	opts = {
 		signature = { enabled = true },
-		-- See :h blink-cmp-config-keymap for defining your own keymap
 		keymap = {
 			preset = 'none',
 			['<C-space>'] = {
