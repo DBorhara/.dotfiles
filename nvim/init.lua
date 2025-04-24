@@ -5,7 +5,7 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 ----------
--- Imports
+-- Imports Keep In Order For Loading
 ----------
 require('config.lazy')
 require('config.remap')
