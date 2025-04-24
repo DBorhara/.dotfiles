@@ -56,7 +56,7 @@ tre() { command tre "$@" -e && source "/tmp/tre_aliases_$USER" 2>/dev/null; }
 alias tree='tre'
 
 # wezterm
-alias cfgwezterm="nvim ~/.config/wezterm"
+alias cfgwezterm="nvim ~/.config/wezterm/wezterm.lua"
 
 # zoxide (better cd)
 alias cd='z'

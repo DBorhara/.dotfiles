@@ -3,17 +3,6 @@
 ------------------
 local opt = vim.opt
 
-----------------
--- Miscellaneous
-----------------
--- Use OS cipboard as yank/paste/delete buffer
-vim.schedule(function()
-	opt.clipboard = 'unnamedplus'
-end)
-
--- Save undo history
-opt.undofile = true
-
 --------------------
 -- Interface
 --------------------
@@ -47,3 +36,14 @@ opt.smartindent = true -- Autoindent new lines
 ---------------
 opt.updatetime = 250 -- Decrease update time
 opt.inccommand = 'split' --Live substitutions while typing
+
+----------------
+-- Miscellaneous
+----------------
+-- Use OS cipboard as yank/paste/delete buffer
+vim.schedule(function()
+	opt.clipboard = 'unnamedplus'
+end)
+
+-- Save undo history
+opt.undofile = true
