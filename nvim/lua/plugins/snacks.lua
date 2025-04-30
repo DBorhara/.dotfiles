@@ -9,10 +9,11 @@ return {
 	opts = {
 		animate = { enabled = true },
 		dashboard = dashboard,
+		image = { enabled = true },
 		indent = { enabled = true },
 		input = { enabled = true },
 		lazygit = { enabled = true },
-		notifier = { enabled = true },
+		notifier = { enabled = true, timeout = 3000 },
 		notify = { enabled = true },
 		picker = { enabled = true },
 		statuscolumn = { enabled = true },

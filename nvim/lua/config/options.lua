@@ -9,19 +9,19 @@ local opt = vim.opt
 opt.number = true -- Show line number
 opt.rnu = true -- Use relative line numbers
 opt.cursorline = true -- Hightlight cursor line
-opt.showmatch = true -- Highlight matching parenthesis
+opt.colorcolumn = '80' -- Line length marker at 80 columns
+opt.linebreak = true -- Wrap on word boundary
 opt.foldmethod = 'marker' -- Enable folding (default 'foldmarker')
-opt.colorcolumn = '80' -- Line lenght marker at 80 columns
 opt.splitright = true -- Vertical split to the right
 opt.splitbelow = true -- Horizontal split to the bottom
 opt.ignorecase = true -- Ignore case letters when search
 opt.smartcase = true -- Ignore lowercase for the whole pattern
-opt.linebreak = true -- Wrap on word boundary
+opt.showmatch = true -- Highlight matching parenthesis
 opt.termguicolors = true -- Enable 24-bit RGB colors
 opt.laststatus = 3 -- Set global statusline
-opt.confirm = true -- Save Insurance
 opt.showmode = false -- Hide commands at bottom
 opt.signcolumn = 'yes' -- Keep signcolumn on
+opt.confirm = true -- Save Insurance
 
 -----------
 -- Spacing

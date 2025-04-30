@@ -6,9 +6,12 @@ return {
 	opts = {
 		formatters_by_ft = {
 			java = { 'google-java-format' },
+			javascript = { 'prettierd' },
 			lua = { 'stylua' },
 			markdown = { 'markdownlint' },
 			python = { 'isort', 'black' },
+			typescript = { 'prettierd' },
+			typescriptreact = { 'prettierd' },
 		},
 		default_format_opts = {
 			lsp_format = 'fallback',

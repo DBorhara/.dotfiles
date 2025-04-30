@@ -20,7 +20,13 @@ vim.g.have_nerd_font = true
 -------
 -- LSP
 -------
-vim.lsp.enable({ 'luals', 'ltex-ls-plus', 'jdtls', 'pyright' })
+vim.lsp.enable({
+	'luals',
+	'ltex-ls-plus',
+	'jdtls',
+	'pyright',
+	'typescript-language-server',
+})
 
 -----------
 -- Obsidian
