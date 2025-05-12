@@ -13,11 +13,14 @@ return {
 		indent = { enable = true },
 		ensure_installed = {
 			'bash',
+			'html',
 			'java',
+			'latex',
 			'lua',
 			'markdown',
 			'markdown_inline',
 			'python',
+			'tsx',
 		},
 	},
 	config = function(_, opts)

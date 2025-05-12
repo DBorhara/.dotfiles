@@ -68,7 +68,6 @@ alias cd='z'
 alias zshrc="nvim ~/.zshrc"
 alias so="source ~/.zshrc"
 
-#--------
 # Evals
 # Homebrew
 eval "$(/opt/homebrew/bin/brew shellenv)"
@@ -79,7 +78,8 @@ eval "$(zoxide init zsh)"
 # fzf(fuzzy finding)
 source <(fzf --zsh)
 
-
+# Set eza config directory path
 export EZA_CONFIG_DIR="$HOME/.config/eza"
 
+# Run neofetch on terminal open
 neofetch
