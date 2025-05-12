@@ -15,8 +15,8 @@ return {
 		},
 		workspaces = {
 			{
-				name = 'Rutgers Spring 2025',
-				path = '~/Documents/Obsidian/Rutgers/Rutgers Spring 2025/',
+				name = 'Rutgers Summer 2025',
+				path = '~/Documents/Obsidian/Rutgers/Rutgers Summer 2025/',
 			},
 			{ name = 'JavaDocs', path = '~/Documents/Obsidian/JavaDocs/' },
 			{
@@ -24,9 +24,9 @@ return {
 				path = '~/Documents/Obsidian/Rutgers/Rutgers Comp Sci BS/',
 			},
 		},
-		conceallevel = 1,
+		conceallevel = 2,
 		ui = {
-			conceallevel = 1,
+			conceallevel = 2,
 		},
 	},
 }

@@ -35,7 +35,7 @@ alias cfgnvim="nvim ~/.config/nvim/"
 alias cfgxnvim="NVIM_APPNAME=nvim_scratch_build nvim ~/.config/nvim_scratch_build"
 
 # obsidian open
-alias obsidian="nvim ~/Documents/Obsidian/Rutgers/Rutgers\ Spring\ 2025/"
+alias obsidian="nvim ~/Documents/Obsidian/Rutgers/Rutgers\ Summer\ 2025/"
 
 # leetcode
 alias leetcode="nvim leetcode.nvim"
