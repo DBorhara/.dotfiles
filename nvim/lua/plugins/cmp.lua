@@ -32,7 +32,12 @@ return {
 			accept = { auto_brackets = { enabled = true } },
 		},
 		sources = {
-			default = { 'lsp', 'path', 'snippets', 'buffer' },
+			default = {
+				'lsp',
+				'path',
+				'snippets',
+				'buffer',
+			},
 		},
 
 		-- (Default) Rust fuzzy matcher for typo resistance and significantly better performance

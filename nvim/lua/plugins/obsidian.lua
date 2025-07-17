@@ -1,32 +1,25 @@
 return {
-	name = 'obsidian.nvim',
-	url = 'https://github.com/obsidian-nvim/obsidian.nvim.git',
+	'obsidian-nvim/obsidian.nvim',
 	version = '*',
-	lazy = true,
+	lazy = false,
 	ft = 'markdown',
 	dependencies = {
-		name = 'plenary.nvim',
-		url = 'https://github.com/nvim-lua/plenary.nvim.git',
+		'nvim-lua/plenary.nvim',
 	},
 	opts = {
-		completion = {
-			blink = true,
-			nvim_cmp = false,
-		},
 		workspaces = {
 			{
-				name = 'Rutgers Summer 2025',
-				path = '~/Documents/Obsidian/Rutgers/Rutgers Summer 2025/',
-			},
-			{ name = 'JavaDocs', path = '~/Documents/Obsidian/JavaDocs/' },
-			{
-				name = 'Rutgers CS',
-				path = '~/Documents/Obsidian/Rutgers/Rutgers Comp Sci BS/',
+				name = 'CS111',
+				path = '~/Documents/Obsidian/Rutgers/Rutgers_Summer_2025/CS_111/',
 			},
 		},
-		conceallevel = 2,
-		ui = {
-			conceallevel = 2,
+		completion = {
+			nvim_cmp = false,
+			blink = true,
 		},
+		picker = {
+			name = 'snacks.pick',
+		},
+		mappings = {},
 	},
 }

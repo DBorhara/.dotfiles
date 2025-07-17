@@ -18,6 +18,17 @@ return {
 			inc_rename = false, -- enables an input dialog for inc-rename.nvim
 			lsp_doc_border = false, -- add a border to hover docs and signature help
 		},
+		progress = {
+			progress = {
+				enabled = false, -- disables LSP progress messages like "validating"
+			},
+			hover = {
+				enabled = true, -- still allow hover docs
+			},
+			signature = {
+				enabled = true, -- still allow signature help
+			},
+		},
 	},
 	dependencies = {
 		{
