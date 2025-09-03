@@ -55,4 +55,11 @@ return {
 		end,
 		desc = 'Colorschemes',
 	},
+	{
+		'<leader>fb',
+		function()
+			Snacks.picker.buffers()
+		end,
+		desc = 'Buffers',
+	},
 }

@@ -37,3 +37,8 @@ vim.diagnostic.config({
 -- Obsidian
 -----------
 vim.opt.conceallevel = 2
+
+vim.g.loaded_node_provider = 0
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_python3_provider = 0
+vim.g.loaded_python3_provider = 0

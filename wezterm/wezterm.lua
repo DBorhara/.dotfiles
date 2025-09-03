@@ -1,5 +1,36 @@
 local wezterm = require('wezterm')
+local colors = {
+	foreground = '#d6d6d6', -- soft light gray
+	background = '#1a1a1a', -- near black
+	cursor_bg = '#a3c1da',
+	cursor_border = '#a3c1da',
+	cursor_fg = '#1a1a1a',
+	selection_bg = '#44475a',
+	selection_fg = '#ffffff',
 
+	ansi = {
+		'#2e2e2e', -- black (dim)
+		'#ffb3ba', -- red (pastel)
+		'#baffc9', -- green (pastel)
+		'#ffffba', -- yellow (pastel)
+		'#bae1ff', -- blue (pastel)
+		'#e0bbff', -- magenta (pastel)
+		'#b2fefa', -- cyan (pastel)
+		'#dcdcdc', -- white (light gray)
+	},
+
+	brights = {
+		'#4e4e4e', -- bright black (dark gray)
+		'#ff8b94', -- bright red
+		'#c2f9bb', -- bright green
+		'#ffffd1', -- bright yellow
+		'#b3ecff', -- bright blue
+		'#dab6fc', -- bright magenta
+		'#c4fff9', -- bright cyan
+		'#f5f5f5', -- bright white
+	},
+}
+--[[
 local colors = {
 	foreground = '#262626',
 	background = '#1e1e2e',
@@ -30,7 +61,7 @@ local colors = {
 		'#5fffff',
 		'#ffffff',
 	},
-}
+}]]
 
 return {
 	font = wezterm.font_with_fallback({
@@ -52,7 +83,7 @@ return {
 	},
 
 	-- 🌄 Background image
-	window_background_image = '/Users/depakborhara/.cache/thumbnails/neofetch/luffy.png',
+	--window_background_image = '/Users/depakborhara/.cache/thumbnails/neofetch/luffy.png',
 	window_background_opacity = 0.8,
 	text_background_opacity = 1.0,
 
@@ -69,6 +100,7 @@ return {
 			key = 'Tab',
 			mods = 'SHIFT',
 			action = wezterm.action.SendString('\x1b[Z'),
+			-- Send Shift + Tab to ensure it works when pressed.
 		},
 	},
 
