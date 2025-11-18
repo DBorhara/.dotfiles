@@ -9,7 +9,7 @@ return {
 			javascript = { 'prettierd' },
 			lua = { 'stylua' },
 			markdown = { 'markdownlint' },
-			python = { 'isort', 'black' },
+			python = { 'black' },
 			typescript = { 'prettierd' },
 			typescriptreact = { 'prettierd' },
 		},

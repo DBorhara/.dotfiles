@@ -63,7 +63,10 @@ vim.keymap.set('n', '<down>', '<CMD>echo "Use j to move!!"<CR>')
 -- Format Buffer
 vim.keymap.set('n', '<leader>/', function()
 	--vim.lsp.buf.format({ bufnr = 0, async = true, timeout_ms = 1000 })
-	require('conform').format({ async = true, lsp_format = 'fallback' })
+	require('conform').format({
+		async = true,
+		lsp_format = 'fallback',
+	})
 end, { desc = 'Format buffer' })
 -- Inline Diagnostics
 vim.keymap.set('n', '<leader>td', function()

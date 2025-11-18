@@ -20,25 +20,11 @@ vim.g.have_nerd_font = true
 -------
 -- LSP
 -------
+require('java').setup()
 vim.lsp.enable({
 	'luals',
 	'jdtls',
 	'marksman',
 	'pyright',
-	'typescript-language-server',
 })
-vim.diagnostic.config({
-	update_in_insert = false, -- don't show diagnostics while typing
-	severity_sort = true, -- sort by severity
-	virtual_text = true, -- you can tweak this or set to false to hide inline errors
-})
-
------------
--- Obsidian
------------
-vim.opt.conceallevel = 2
-
-vim.g.loaded_node_provider = 0
-vim.g.loaded_perl_provider = 0
-vim.g.loaded_python3_provider = 0
-vim.g.loaded_python3_provider = 0
+require('lspconfig').jdtls.setup({})
