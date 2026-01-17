@@ -1,7 +1,14 @@
 local wezterm = require('wezterm')
-local colors = {
-	foreground = '#d6d6d6', -- soft light gray
-	background = '#1a1a1a', -- near black
+
+-- Build config table safely for older versions
+local config = wezterm.config_builder and wezterm.config_builder() or {}
+
+-----------------------------------------------------------
+-- 🎨 Colors
+-----------------------------------------------------------
+config.colors = {
+	foreground = '#d6d6d6',
+	background = '#1a1a1a',
 	cursor_bg = '#a3c1da',
 	cursor_border = '#a3c1da',
 	cursor_fg = '#1a1a1a',
@@ -9,102 +16,120 @@ local colors = {
 	selection_fg = '#ffffff',
 
 	ansi = {
-		'#2e2e2e', -- black (dim)
-		'#ffb3ba', -- red (pastel)
-		'#baffc9', -- green (pastel)
-		'#ffffba', -- yellow (pastel)
-		'#bae1ff', -- blue (pastel)
-		'#e0bbff', -- magenta (pastel)
-		'#b2fefa', -- cyan (pastel)
-		'#dcdcdc', -- white (light gray)
+		'#2e2e2e',
+		'#ffb3ba',
+		'#baffc9',
+		'#ffffba',
+		'#bae1ff',
+		'#e0bbff',
+		'#b2fefa',
+		'#dcdcdc',
 	},
 
 	brights = {
-		'#4e4e4e', -- bright black (dark gray)
-		'#ff8b94', -- bright red
-		'#c2f9bb', -- bright green
-		'#ffffd1', -- bright yellow
-		'#b3ecff', -- bright blue
-		'#dab6fc', -- bright magenta
-		'#c4fff9', -- bright cyan
-		'#f5f5f5', -- bright white
+		'#4e4e4e',
+		'#ff8b94',
+		'#c2f9bb',
+		'#ffffd1',
+		'#b3ecff',
+		'#dab6fc',
+		'#c4fff9',
+		'#f5f5f5',
 	},
 }
---[[
-local colors = {
-	foreground = '#262626',
-	background = '#1e1e2e',
-	cursor_bg = '#ffaf00',
-	cursor_border = '#ffaf00',
-	cursor_fg = '#000000',
-	selection_bg = '#ffe6b3',
-	selection_fg = '#000000',
 
-	ansi = {
-		'#1c1c1c',
-		'#ff5f5f',
-		'#5fff87',
-		'#ffd75f',
-		'#5fafd7',
-		'#ff87d7',
-		'#00d7ff',
-		'#e4e4e4',
-	},
+-----------------------------------------------------------
+-- 🔤 Fonts
+-----------------------------------------------------------
+config.font = wezterm.font_with_fallback({
+	'JetBrainsMono Nerd Font',
+	'FiraCode Nerd Font',
+	'Hack Nerd Font',
+})
+config.font_size = 20.0
 
-	brights = {
-		'#444444',
-		'#ff8787',
-		'#87ffaf',
-		'#ffffaf',
-		'#87d7ff',
-		'#ffafff',
-		'#5fffff',
-		'#ffffff',
-	},
-}]]
+-----------------------------------------------------------
+-- 🪟 Window configuration (IMPORTANT FOR SLIDING)
+-----------------------------------------------------------
 
-return {
-	font = wezterm.font_with_fallback({
-		'JetBrainsMono Nerd Font',
-		'FiraCode Nerd Font',
-		'Hack Nerd Font',
-	}),
-	font_size = 25.0,
-	default_prog = { '/bin/zsh', '-l' },
-	hide_tab_bar_if_only_one_tab = true,
-	enable_scroll_bar = false,
-	use_fancy_tab_bar = false,
+-- ❗ MUST be normal window for Hammerspoon slide animation
+config.window_decorations = 'RESIZE'
+config.window_background_opacity = 1.0
 
-	window_padding = {
-		left = 8,
-		right = 8,
-		top = 6,
-		bottom = 6,
-	},
+-- Required so status line always shows
+config.hide_tab_bar_if_only_one_tab = false
+config.use_fancy_tab_bar = false
+config.tab_bar_at_bottom = false
+config.show_tab_index_in_tab_bar = false
+config.tab_max_width = 1
 
-	-- 🌄 Background image
-	--window_background_image = '/Users/depakborhara/.cache/thumbnails/neofetch/luffy.png',
-	window_background_opacity = 0.8,
-	text_background_opacity = 1.0,
+config.enable_scroll_bar = false
+config.adjust_window_size_when_changing_font_size = false
 
-	-- 🎨 Custom color palette
-	colors = colors,
+config.window_padding = {
+	left = 8,
+	right = 8,
+	top = 8,
+	bottom = 8,
+}
 
-	keys = {
-		{
-			key = 'n',
-			mods = 'CTRL|SHIFT',
-			action = wezterm.action.SendString('nvim\n'),
-		},
-		{
-			key = 'Tab',
-			mods = 'SHIFT',
-			action = wezterm.action.SendString('\x1b[Z'),
-			-- Send Shift + Tab to ensure it works when pressed.
-		},
-	},
-
-	set_environment_variables = {
-		WEZTERM_ACTIVE = '1',
+-----------------------------------------------------------
+-- ⌨️ Keybindings
+-----------------------------------------------------------
+config.keys = {
+	{
+		key = 'f',
+		mods = 'CTRL|SHIFT',
+		action = wezterm.action.ToggleFullScreen,
 	},
 }
+
+-----------------------------------------------------------
+-- ⚡ GEAR 5 STATUS BAR
+-- Compatible with WezTerm 20240203 (your version)
+-----------------------------------------------------------
+wezterm.on('update-right-status', function(window, pane)
+	---------------------------------------------------
+	-- LEFT SIDE: Current working directory
+	---------------------------------------------------
+	local cwd_uri = pane:get_current_working_dir()
+	local cwd = ''
+
+	if cwd_uri then
+		-- Convert URI/table to a string
+		local uri = tostring(cwd_uri)
+
+		-- Strip "file://"
+		uri = uri:gsub('^file://', '')
+
+		-- URL decode (%20 → space)
+		cwd = uri:gsub('%%(%x%x)', function(hex)
+			return string.char(tonumber(hex, 16))
+		end)
+	end
+
+	window:set_left_status(wezterm.format({
+		{ Foreground = { Color = '#9ccfd8' } },
+		{ Attribute = { Intensity = 'Bold' } },
+		{ Text = '  ' .. cwd .. '  ' },
+	}))
+
+	---------------------------------------------------
+	-- RIGHT SIDE: GEAR 5 + timestamp
+	---------------------------------------------------
+	local date = wezterm.strftime('%Y-%m-%d %H:%M')
+
+	local right = wezterm.format({
+		{ Foreground = { Color = '#f6c177' } },
+		{ Attribute = { Intensity = 'Bold' } },
+		{ Text = '⚡  GEAR 5  ' },
+		{ Attribute = { Intensity = 'Normal' } },
+		{ Foreground = { Color = '#d6d6d6' } },
+		{ Text = date .. '  ' },
+	})
+
+	window:set_right_status(right)
+end)
+
+-----------------------------------------------------------
+return config
