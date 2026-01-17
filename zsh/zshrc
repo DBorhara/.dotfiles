@@ -1,117 +1,111 @@
-
 # ========================================
-# 🧠 ENVIRONMENT
+# 🧠 Environment
 # ========================================
-
 export EDITOR="nvim"
 export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 export EZA_CONFIG_DIR="$HOME/.config/eza"
 
 # Homebrew
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # ========================================
-# 🧩 COMPLETION / AUTOSUGGESTIONS
+# 🧩 Completion / Autosuggestions
 # ========================================
-
-# Enable classic tab-completion behavior
 autoload -Uz compinit
-compinit
+compinit -u
 
-# Enable menu-select navigation
+# Menu select for completions
 autoload -Uz menu-select
 zmodload zsh/complist
+
 bindkey '^I' menu-complete
 bindkey "$terminfo[kcbt]" reverse-menu-complete
 bindkey -M menuselect '^I' menu-complete
 bindkey -M menuselect "$terminfo[kcbt]" reverse-menu-complete
-bindkey -M menuselect '^[[D' .backward-char '^[OD' .backward-char
-bindkey -M menuselect '^[[C' .forward-char  '^[OC' .forward-char
+bindkey -M menuselect '^[[D' .backward-char
+bindkey -M menuselect '^[[C' .forward-char
 bindkey -M menuselect '^M' .accept-line
-
-# Zsh autosuggestions (Fish-style ghost text)
-source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # Extra completions
 fpath+=("/opt/homebrew/share/zsh-completions")
 
-# fzf-tab (installed manually)
-source ~/.zsh_plugins/fzf-tab/fzf-tab.plugin.zsh
+# Autosuggestions
+if [ -f /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
+  source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+fi
+
+# fzf-tab
+[ -f ~/.zsh_plugins/fzf-tab/fzf-tab.plugin.zsh ] && source ~/.zsh_plugins/fzf-tab/fzf-tab.plugin.zsh
+
+# Syntax highlighting (must be last)
+if [ -f /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
+  source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
 
 # ========================================
-# 🔍 FZF (Fuzzy Finder)
+# 🔍 FZF
 # ========================================
-
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 alias fzf='fzf --preview "bat --color=always --style=numbers --line-range=:500 {}"'
 
 # ========================================
-# 🐈 BAT (Better Cat)
+# 🐈 BAT
 # ========================================
-
 alias cat='bat'
 tailbat() {
   tail -f "$1" | bat --paging=never --language=log --plain
 }
 
 # ========================================
-# 🖼️ NEOFETCH
+# 🧱 Zoxide (better cd)
 # ========================================
+eval "$(zoxide init zsh)"
+unalias cd 2>/dev/null
+cd() { z "$@"; }
 
-alias neofetch="neofetch --backend iterm2 --source ~/.cache/thumbnails/neofetch/waifu2.png"
-alias cfgneofetch="nvim ~/.config/neofetch/"
-
-# Run neofetch on terminal open
-if [[ -n "$TMUX" ]]; then
-  neofetch --image_backend chafa
-else
-  neofetch
-fi
+alias ..='cd ..'
+alias ...='cd ../..'
 
 # ========================================
-# 🔧 NVIM
+# 🖼️ Fastfetch
 # ========================================
+fastfetch
 
+# ========================================
+# 🔧 Neovim
+# ========================================
 alias cfgnvim="nvim ~/.config/nvim/"
 alias cfgxnvim="NVIM_APPNAME=nvim_scratch_build nvim ~/.config/nvim_scratch_build"
 alias leetcode="nvim leetcode.nvim"
 
 # ========================================
-# 📁 EZA (Better ls)
+# 📁 EZA
 # ========================================
-
 alias ls='eza -al --hyperlink --icons --git -G --group-directories-first --time-style=long-iso'
 alias cfgeza="nvim ~/.config/eza"
 
 # ========================================
+# 🪟 WezTerm
+# ========================================
+alias cfgwezterm="nvim ~/.config/wezterm/wezterm.lua"
+
+# ========================================
 # 🧱 TMUX
 # ========================================
-
 alias cfgtmux="nvim ~/.config/tmux"
 
 # ========================================
-# 🌲 TRE (Tree replacement)
+# 🌲 TRE
 # ========================================
-
 tre() { command tre "$@" -e && source "/tmp/tre_aliases_$USER" 2>/dev/null; }
 alias tree='tre'
 
 # ========================================
-# 🪟 WEZTERM
+# ⚙️ Config Shortcuts
 # ========================================
-
-alias cfgwezterm="nvim ~/.config/wezterm/wezterm.lua"
-
-# ========================================
-# 🚀 ZOXIDE (Better cd)
-# ========================================
-
-eval "$(zoxide init zsh)"
-alias cd='z'
-
-# ========================================
-# ⚙️ CONFIG SHORTCUTS
-# ========================================
-
 alias zshrc="nvim ~/.zshrc"
 alias so="source ~/.zshrc"
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+

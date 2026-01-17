@@ -17,14 +17,15 @@ require('config.commands')
 ------------
 vim.g.have_nerd_font = true
 
+vim.opt.termguicolors = true
+vim.cmd('colorscheme moonfly')
+
 -------
 -- LSP
 -------
-require('java').setup()
 vim.lsp.enable({
 	'luals',
 	'jdtls',
 	'marksman',
 	'pyright',
 })
-require('lspconfig').jdtls.setup({})

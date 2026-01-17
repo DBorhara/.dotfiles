@@ -2,8 +2,10 @@ return {
 	name = 'blink.cmp',
 	url = 'https://github.com/Saghen/blink.cmp.git',
 	dependencies = {
-		name = 'friendly-snippets',
-		url = 'https://github.com/rafamadriz/friendly-snippets.git',
+		{
+			name = 'friendly-snippets',
+			url = 'https://github.com/rafamadriz/friendly-snippets.git',
+		},
 	},
 	version = '1.*',
 	---@module 'blink.cmp'
@@ -11,7 +13,7 @@ return {
 	opts = {
 		signature = { enabled = true },
 		keymap = {
-			preset = 'default',
+			preset = 'enter',
 		},
 		appearance = {
 			nerd_font_variant = 'mono',
