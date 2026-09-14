@@ -5,6 +5,8 @@ export EDITOR="nvim"
 export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export EZA_CONFIG_DIR="$HOME/.config/eza"
+alias ssh="kitty +kitten ssh"
+
 
 # Homebrew
 eval "$(/opt/homebrew/bin/brew shellenv)"
@@ -109,3 +111,43 @@ alias so="source ~/.zshrc"
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
+# Git Stuff
+autoload -Uz compinit && compinit
+autoload -Uz add-zsh-hook
+autoload -Uz vcs_info
+
+add-zsh-hook precmd vcs_info
+
+zstyle ':vcs_info:*' enable git
+zstyle ':vcs_info:*' formats " %F{cyan}%c%u(%b)%f"
+zstyle ':vcs_info:*' actionformats " %F{cyan}%c%u(%b)%f %a"
+zstyle ':vcs_info:*' stagedstr "%F{green}"
+zstyle ':vcs_info:*' unstagedstr "%F{red}"
+zstyle ':vcs_info:*' check-for-changes true
+
+zstyle ':vcs_info:git*+set-message:*' hooks git-untracked
+
++vi-git-untracked() {
+  if git --no-optional-locks status --porcelain 2> /dev/null | grep -q "^??"; then
+    hook_com[staged]+="%F{red}"
+  fi
+}
+
+setopt PROMPT_SUBST
+export PROMPT='%n:%1~$vcs_info_msg_0_ %# '
+
+
+# BEGIN opam configuration
+# This is useful if you're using opam as it adds:
+#   - the correct directories to the PATH
+#   - auto-completion for the opam binary
+# This section can be safely removed at any time if needed.
+[[ ! -r '/Users/depakborhara/.opam/opam-init/init.zsh' ]] || source '/Users/depakborhara/.opam/opam-init/init.zsh' > /dev/null 2> /dev/null
+# END opam configuration
+# The following lines have been added by Docker Desktop to enable Docker CLI completions.
+fpath=(/Users/depakborhara/.docker/completions $fpath)
+autoload -Uz compinit
+(( ${+_comps[docker]} )) || compinit
+# End of Docker CLI completions
+#
+alias ilab-start='ssh -MNf ilab'
