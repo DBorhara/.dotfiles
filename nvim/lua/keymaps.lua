@@ -6,30 +6,19 @@ vim.g.maplocalleader = " "
 vim.keymap.set('n', '<leader>pv', vim.cmd.Ex, { desc = 'Open Explorer' })
 vim.keymap.set('n', '<C-u>', '<C-u>zz', { desc = 'scroll up and center' })
 vim.keymap.set('n', '<C-d>', '<C-d>zz', { desc = 'scroll down and center' })
-vim.keymap.set(
-    'n',
-    '<C-h>',
-    '<C-w><C-h>',
-    { desc = 'Move focus to the left window' }
-)
-vim.keymap.set(
-    'n',
-    '<C-l>',
-    '<C-w><C-l>',
-    { desc = 'Move focus to the right window' }
-)
-vim.keymap.set(
-    'n',
-    '<C-j>',
-    '<C-w><C-j>',
-    { desc = 'Move focus to the lower window' }
-)
-vim.keymap.set(
-    'n',
-    '<C-k>',
-    '<C-w><C-k>',
-    { desc = 'Move focus to the upper window' }
-)
+-- Ctrl-h/j/k/l: move between Neovim windows; at the edge, hand off to the
+-- neighbouring tmux pane (tmux side lives in tmux/tmux.conf).
+local tmux_dir = { h = 'L', j = 'D', k = 'U', l = 'R' }
+local names = { h = 'left', j = 'lower', k = 'upper', l = 'right' }
+for key, flag in pairs(tmux_dir) do
+    vim.keymap.set('n', '<C-' .. key .. '>', function()
+        local win = vim.api.nvim_get_current_win()
+        vim.cmd.wincmd(key)
+        if vim.env.TMUX and win == vim.api.nvim_get_current_win() then
+            vim.system({ 'tmux', 'select-pane', '-' .. flag })
+        end
+    end, { desc = 'Move focus to the ' .. names[key] .. ' window / tmux pane' })
+end
 vim.keymap.set('n', '<Esc>', '<CMD>nohlsearch<CR>')
 
 -----------
