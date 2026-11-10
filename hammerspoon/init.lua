@@ -28,6 +28,54 @@ hs.hotkey.bind({ "cmd" }, "`", function()
 end)
 
 ---------------------------------------------
+--  Window management on ⌃⌥ (Control-Option) + Vim keys
+--    h / l    left / right half; press again for ⅓ then ⅔
+--    k        maximize            j      center (70%)
+--    n        move to next screen Space  window hints (type a letter)
+---------------------------------------------
+
+local mod = { "ctrl", "alt" }
+local SPEED = 0.08
+local fractions = { 1 / 2, 1 / 3, 2 / 3 }
+local cycle = {} -- per-window: which side was snapped and how many times
+
+local function snap(side)
+    local win = hs.window.focusedWindow()
+    if not win then return end
+    local id, c = win:id(), cycle[win:id()]
+    local i = (c and c.side == side) and (c.i % #fractions) + 1 or 1
+    cycle[id] = { side = side, i = i }
+    local f = win:screen():frame()
+    local w = math.floor(f.w * fractions[i])
+    local x = (side == "left") and f.x or (f.x + f.w - w)
+    win:setFrame({ x = x, y = f.y, w = w, h = f.h }, SPEED)
+end
+
+local function place(fn)
+    return function()
+        local win = hs.window.focusedWindow()
+        if not win then return end
+        cycle[win:id()] = nil
+        fn(win, win:screen():frame())
+    end
+end
+
+hs.hotkey.bind(mod, "h", function() snap("left") end)
+hs.hotkey.bind(mod, "l", function() snap("right") end)
+hs.hotkey.bind(mod, "k", place(function(win, f) win:setFrame(f, SPEED) end))
+hs.hotkey.bind(mod, "j", place(function(win, f)
+    local w, h = f.w * 0.7, f.h * 0.8
+    win:setFrame({ x = f.x + (f.w - w) / 2, y = f.y + (f.h - h) / 2, w = w, h = h }, SPEED)
+end))
+hs.hotkey.bind(mod, "n", place(function(win)
+    win:moveToScreen(win:screen():next(), false, true, SPEED)
+end))
+
+-- Window hints: every window gets a letter; type it to jump there.
+hs.hints.style = "vimperator"   -- hint letters start with the app's initial
+hs.hotkey.bind(mod, "space", function() hs.hints.windowHints() end)
+
+---------------------------------------------
 --  Reload automatically when a .lua file here is saved
 ---------------------------------------------
 -- Watch the real folder (~/.hammerspoon is a symlink into dotfiles).
