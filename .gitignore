@@ -1,0 +1,10 @@
+# macOS
+.DS_Store
+
+# local scratch / backups
+nvim.zip
+nvimtemp/
+
+
+# tmux plugins are installed by TPM (install.sh bootstraps it)
+tmux/plugins/
