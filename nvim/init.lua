@@ -1,4 +1,3 @@
-vim.cmd.colorscheme("vim")
 vim.cmd("packadd netrw")
 require("lsp")
 require("keymaps")
