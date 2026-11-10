@@ -1,0 +1,31 @@
+# tlrc (tldr) — named colours come from kitty's palette, which is
+# Catppuccin Mocha, so these render as Mocha pink / green / blue / etc.
+
+[output]
+compact = true          # no blank lines between examples
+option_style = "long"   # prefer --long flags (pass --short-options to flip)
+
+[style.title]
+color = "magenta"       # Mocha pink
+bold = true
+
+[style.description]
+color = "white"         # Mocha subtext
+
+[style.bullet]
+color = "green"         # Mocha green
+
+[style.example]
+color = "blue"          # Mocha blue
+
+[style.inline_code]
+color = "yellow"
+italic = true
+
+[style.placeholder]
+color = "red"           # {{things you replace}}
+italic = true
+
+[style.url]
+color = "cyan"
+italic = true

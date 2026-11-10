@@ -100,6 +100,34 @@ s() {
 }
 
 # ========================================
+# 📖 tldr (tlrc)
+# ========================================
+# tl [query]: fuzzy-browse every tldr page with a live preview
+tl() {
+  local page
+  page=$(tldr --list 2>/dev/null | fzf --prompt 'tldr ❯ ' --query "$*" \
+    --preview 'tldr --color always {}' --preview-window 'right:65%,wrap') || return
+  tldr "$page"
+}
+
+# Alt-h: tldr for the command you're typing (tries "git commit" as
+# git-commit first). Your command line is left untouched.
+_tldr_line() {
+  local -a w=(${(z)BUFFER})
+  [[ $w[1] == sudo ]] && shift w
+  (( $#w )) || return
+  zle -I
+  print
+  if (( $#w > 1 )) && tldr -q "$w[1]-$w[2]" 2>/dev/null; then
+    :
+  else
+    tldr -q "$w[1]" 2>/dev/null || print "no tldr page for: $w[1]"
+  fi
+}
+zle -N _tldr_line
+bindkey '^[h' _tldr_line
+
+# ========================================
 # 🖼️ Fastfetch
 # ========================================
 # tmux can't pass the kitty image protocol through directly; `kitten icat`
