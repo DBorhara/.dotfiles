@@ -49,10 +49,6 @@
       "rev": "0dc0cfb0c6858041174a53c7aa4adaf65e994b3c",
       "src": "https://github.com/nvim-tree/nvim-web-devicons"
     },
-    "ocaml.nvim": {
-      "rev": "cd21b0d92270fa8aa455d3986dd73f447c28505f",
-      "src": "https://github.com/tarides/ocaml.nvim"
-    },
     "persistence.nvim": {
       "rev": "b20b2a7887bd39c1a356980b45e03250f3dce49c",
       "src": "https://github.com/folke/persistence.nvim"

@@ -8,7 +8,6 @@ require("conform").setup({
     java = { 'google-java-format' },
     lua = { 'stylua' },
     markdown = { 'cbfmt', 'prettierd' },
-    ocaml = { 'ocamlformat' },
     css = { 'prettierd' },
     sql = { 'pg_format' },
     xml = { 'xmlformatter' },
@@ -22,17 +21,6 @@ require("conform").setup({
     lsp_format = 'fallback',
   },
   formatters = {
-    ocamlformat = {
-      prepend_args = {
-        "--if-then-else",
-        "vertical",
-        "--break-cases",
-        "fit-or-vertical",
-        "--type-decl",
-        "sparse",
-      },
-    },
-
     stylua = {
       prepend_args = {
         '--quote-style',

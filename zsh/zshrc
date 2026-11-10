@@ -186,9 +186,6 @@ PROMPT='%n:%1~$vcs_info_msg_0_ %# '
 # ========================================
 # 🧰 Toolchains
 # ========================================
-# opam
-[[ -r "$HOME/.opam/opam-init/init.zsh" ]] && source "$HOME/.opam/opam-init/init.zsh" >/dev/null 2>&1
-
 alias ilab-start='ssh -MNf ilab'
 
 # fnm

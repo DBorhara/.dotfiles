@@ -58,8 +58,8 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 -- 5. Filetype-specific settings
 vim.api.nvim_create_autocmd("FileType", {
   group = group,
-  pattern = { "lua", "ocaml" },
-  desc = "Use 2 spaces for Lua and OCaml",
+  pattern = { "lua" },
+  desc = "Use 2 spaces for Lua",
   callback = function()
     vim.opt_local.tabstop = 2
     vim.opt_local.shiftwidth = 2
@@ -107,27 +107,5 @@ vim.api.nvim_create_autocmd("FileType", {
       silent = true,
       desc = "Close window",
     })
-  end,
-})
-
-vim.api.nvim_create_autocmd("FileType", {
-  group = group,
-  pattern = { "racket", "scheme" },
-  desc = "Conceal lambda as λ",
-  callback = function()
-    vim.opt_local.conceallevel = 2
-    -- matchadd is per window; don't stack duplicates on re-trigger
-    if vim.w.lambda_conceal then
-      return
-    end
-    vim.w.lambda_conceal = true
-
-    vim.fn.matchadd(
-      "Conceal",
-      [[\<lambda\>]],
-      10,
-      -1,
-      { conceal = "λ" }
-    )
   end,
 })

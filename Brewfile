@@ -51,7 +51,6 @@ brew "neovim"
 # Open-source, cross-platform JavaScript runtime environment
 brew "node"
 # OCaml package manager
-brew "opam"
 # Paste PNG into files
 brew "pngpaste"
 # Python interface to Tcl/Tk
@@ -113,7 +112,6 @@ cask "macfuse"
 # Knowledge base that works on top of a local folder of plain text Markdown files
 cask "obsidian"
 # Modern programming language in the Lisp/Scheme family
-cask "racket"
 # Drag & drop GUI designer for JavaFX
 cask "scenebuilder"
 # Network filesystem client to connect to SSH servers
