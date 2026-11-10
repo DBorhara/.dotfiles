@@ -33,7 +33,8 @@ return {
         icon = ' ',
         key = 's',
         desc = 'Restore Session',
-        section = 'session',
+        -- snacks' `section = 'session'` only detects lazy.nvim installs
+        action = ":lua require('persistence').load()",
     },
     { icon = ' ', key = 'q', desc = 'Quit', action = ':qa' },
 }

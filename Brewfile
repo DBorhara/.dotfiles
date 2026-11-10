@@ -60,6 +60,8 @@ brew "python-tk@3.13"
 brew "ripgrep"
 # Safe, concurrent, practical language
 brew "rust"
+# Smart session manager for the terminal
+brew "sesh"
 # Opinionated Lua code formatter
 brew "stylua"
 # Modernized, complete, self-contained TeX/LaTeX engine

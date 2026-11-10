@@ -53,6 +53,10 @@
       "rev": "cd21b0d92270fa8aa455d3986dd73f447c28505f",
       "src": "https://github.com/tarides/ocaml.nvim"
     },
+    "persistence.nvim": {
+      "rev": "b20b2a7887bd39c1a356980b45e03250f3dce49c",
+      "src": "https://github.com/folke/persistence.nvim"
+    },
     "render-markdown.nvim": {
       "rev": "9c235bedc4f96145e63fcad5b78cd78bce8822c4",
       "src": "https://github.com/MeanderingProgrammer/render-markdown.nvim"

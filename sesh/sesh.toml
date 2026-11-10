@@ -1,0 +1,11 @@
+# sesh: tmux session manager (tmux prefix f, or `s` in zsh)
+# Sessions below always show in the picker; everything else comes from
+# running tmux sessions and zoxide's most-visited folders.
+
+[default_session]
+preview_command = "eza --all --git --icons --color=always --group-directories-first {}"
+
+[[session]]
+name = "dotfiles"
+path = "~/Documents/dotfiles"
+startup_command = "nvim"

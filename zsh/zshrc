@@ -91,6 +91,14 @@ cd() { z "$@"; }
 alias ..='cd ..'
 alias ...='cd ../..'
 
+# s: fuzzy-pick a project and open / attach its tmux session (sesh)
+s() {
+  local pick
+  pick=$(sesh list --icons -d | fzf --ansi --no-sort --height 60% --reverse \
+    --border-label ' sesh ' --prompt '⚡  ' --preview 'sesh preview {}') || return
+  sesh connect "$pick"
+}
+
 # ========================================
 # 🖼️ Fastfetch
 # ========================================
