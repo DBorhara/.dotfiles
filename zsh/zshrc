@@ -102,7 +102,29 @@ s() {
 # ========================================
 # 🖼️ Fastfetch
 # ========================================
-fastfetch
+# tmux can't pass the kitty image protocol through directly; `kitten icat`
+# can (via allow-passthrough), so use it inside tmux. In that mode fastfetch
+# only prints its 8 info lines and doesn't leave room for the 17-row image
+# (16 + 1 top padding), so pad below it until the cursor clears the image.
+if [[ -n "$TMUX" ]]; then
+  _ff_row() { # current cursor row, asked from the terminal (tmux answers)
+    local pos
+    stty -echo < /dev/tty   # don't echo the reply (^[[9;1R) on screen
+    print -n '\e[6n' > /dev/tty
+    read -s -d R pos < /dev/tty
+    stty echo < /dev/tty
+    pos=${pos#*\[}
+    print -- ${pos%%;*}
+  }
+  _ff_start=$(_ff_row)
+  fastfetch --logo-type kitty-icat --logo-width 32 --logo-height 16 \
+    --logo-preserve-aspect-ratio true
+  _ff_pad=$(( _ff_start + 17 - $(_ff_row) ))
+  (( _ff_pad > 0 )) && repeat $_ff_pad echo
+  unset -f _ff_row; unset _ff_start _ff_pad
+else
+  fastfetch
+fi
 
 # ========================================
 # 🔧 Neovim
