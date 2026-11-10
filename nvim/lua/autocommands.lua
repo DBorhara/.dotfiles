@@ -5,7 +5,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   group = group,
   desc = "Highlight yanked text",
   callback = function()
-    vim.highlight.on_yank()
+    vim.hl.on_yank()
   end,
 })
 
@@ -111,9 +111,16 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 vim.api.nvim_create_autocmd("FileType", {
+  group = group,
   pattern = { "racket", "scheme" },
+  desc = "Conceal lambda as λ",
   callback = function()
     vim.opt_local.conceallevel = 2
+    -- matchadd is per window; don't stack duplicates on re-trigger
+    if vim.w.lambda_conceal then
+      return
+    end
+    vim.w.lambda_conceal = true
 
     vim.fn.matchadd(
       "Conceal",

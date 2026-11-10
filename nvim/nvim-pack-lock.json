@@ -14,28 +14,16 @@
       "src": "https://github.com/stevearc/conform.nvim"
     },
     "haunt.nvim": {
-      "rev": "c973175dda88236ecda342fd3654b5dc4f6b7764",
+      "rev": "a614d90be50b49dfe18aac2f3c2394c69feefd01",
       "src": "https://github.com/TheNoeTrevino/haunt.nvim"
     },
     "lualine.nvim": {
       "rev": "221ce6b2d999187044529f49da6554a92f740a96",
       "src": "https://github.com/nvim-lualine/lualine.nvim"
     },
-    "mason-lspconfig.nvim": {
-      "rev": "77e06f7d2fc127e6ef0a720b59acbc50757cff19",
-      "src": "https://github.com/mason-org/mason-lspconfig.nvim"
-    },
-    "mason-tool-installer.nvim": {
-      "rev": "443f1ef8b5e6bf47045cb2217b6f748a223cf7dc",
-      "src": "https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim"
-    },
     "mason.nvim": {
       "rev": "2a6940af80375532e5e9e7c1f2fc6319a1b7a69d",
       "src": "https://github.com/mason-org/mason.nvim"
-    },
-    "mini.nvim": {
-      "rev": "ac5dffcc52b8378fbb15efeb0497a83e57a0b01c",
-      "src": "https://github.com/nvim-mini/mini.nvim"
     },
     "netrw.nvim": {
       "rev": "3f643df59951d9adc4cf348cefe435fcdb5a3671",
@@ -46,15 +34,15 @@
       "src": "https://github.com/mfussenegger/nvim-jdtls"
     },
     "nvim-lspconfig": {
-      "rev": "ac9d2f7c4757db6320cab6697fe73e5e8adb2457",
+      "rev": "adfbb74472f6c231b651b650a89f414c2680fb31",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-treesitter": {
-      "rev": "9a168f6357ed21c3a636e1727bc7d382abc451b8",
+      "rev": "0195cd62fa89950f34c0e0d648ea7897ab85d4d3",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter"
     },
     "nvim-web-devicons": {
-      "rev": "5f032a85be210cd1c6ac98861eb3b187ff3bd5eb",
+      "rev": "ec309a0eaff6ea967e58c275996155ab5c16938d",
       "src": "https://github.com/nvim-tree/nvim-web-devicons"
     },
     "ocaml.nvim": {
@@ -62,7 +50,7 @@
       "src": "https://github.com/tarides/ocaml.nvim"
     },
     "render-markdown.nvim": {
-      "rev": "a778444a73080301a50c4a6f58c90d7e094dd59e",
+      "rev": "8e8795368391036643b622875a6da6a51bcd33f4",
       "src": "https://github.com/MeanderingProgrammer/render-markdown.nvim"
     },
     "snacks.nvim": {

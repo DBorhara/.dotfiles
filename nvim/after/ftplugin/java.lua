@@ -5,9 +5,9 @@ end
 
 local home = os.getenv("HOME")
 local root_markers = { ".git", "mvnw", "gradlew", "pom.xml", "build.gradle", "settings.gradle" }
-local root_dir = require("jdtls.setup").find_root(root_markers)
+local root_dir = vim.fs.root(0, root_markers)
 
-if not root_dir or root_dir == "" then
+if not root_dir then
     return
 end
 
@@ -24,8 +24,6 @@ local config = {
         "-Declipse.application=org.eclipse.jdt.ls.core.id1",
         "-Dosgi.bundles.defaultStartLevel=4",
         "-Declipse.product=org.eclipse.jdt.ls.core.product",
-        "-Dlog.protocol=true",
-        "-Dlog.level=ALL",
         "-Xms1g",
         "--add-modules=ALL-SYSTEM",
         "--add-opens", "java.base/java.util=ALL-UNNAMED",
@@ -39,5 +37,4 @@ local config = {
         bundles = {},
     },
 }
-print("JDTLS workspace: " .. workspace_dir)
 jdtls.start_or_attach(config)

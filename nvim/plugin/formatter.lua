@@ -12,6 +12,7 @@ require("conform").setup({
     css = { 'prettierd' },
     sql = { 'pg_format' },
     xml = { 'xmlformatter' },
+    make = { 'mbake' },
   },
   default_format_opts = {
     lsp_format = 'fallback',

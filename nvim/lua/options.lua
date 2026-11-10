@@ -43,7 +43,7 @@ opt.updatetime = 250     -- Decrease update time
 ----------------
 -- Use OS cipboard as yank/paste/delete buffer
 vim.schedule(function()
-    opt.clipboard = 'unnamedplus'
+  opt.clipboard = 'unnamedplus'
 end)
 
 -- Save undo history

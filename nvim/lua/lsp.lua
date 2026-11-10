@@ -4,8 +4,8 @@ vim.lsp.enable({
   "lua_ls",
   "oxlint",
   "ts_ls",
-  "ty",
   "ocamllsp",
   "racket_langserver",
+  "basedpyright"
 })
 vim.diagnostic.config({ virtual_text = true })
