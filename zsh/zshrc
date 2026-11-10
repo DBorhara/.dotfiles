@@ -100,7 +100,6 @@ fastfetch
 # 🔧 Neovim
 # ========================================
 alias cfgnvim="nvim ~/.config/nvim/"
-alias cfgxnvim="NVIM_APPNAME=nvim_scratch_build nvim ~/.config/nvim_scratch_build"
 alias leetcode="nvim leetcode.nvim"
 
 # ========================================
