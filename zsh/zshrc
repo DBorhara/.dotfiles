@@ -216,7 +216,8 @@ PROMPT='%n:%1~$vcs_info_msg_0_ %# '
 # ========================================
 # Log in once in the background; ssh / scp / rsync / nvim scp:// reuse it
 # for an hour. Skips logging in again if the connection is already up.
-ilab-start() {
+unalias ilab-start 2>/dev/null   # old alias would break re-sourcing with `so`
+function ilab-start {
   command ssh -O check ilab 2>/dev/null && { echo "ilab: already connected"; return; }
   command ssh -fN ilab && echo "ilab: connected (shared for 1h after last use)"
 }
