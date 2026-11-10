@@ -1,54 +1,67 @@
+# Directory this file really lives in (resolves the ~/.zshrc symlink)
+ZSH_CFG_DIR="${${(%):-%x}:A:h}"
+
 # ========================================
 # 🧠 Environment
 # ========================================
+typeset -U path fpath # no duplicate entries, even after `so`
+
+# Homebrew (static copy of `brew shellenv` — avoids spawning brew every shell)
+export HOMEBREW_PREFIX="/opt/homebrew"
+export HOMEBREW_CELLAR="/opt/homebrew/Cellar"
+export HOMEBREW_REPOSITORY="/opt/homebrew"
+export INFOPATH="/opt/homebrew/share/info:${INFOPATH:-}"
+path=(/opt/homebrew/bin /opt/homebrew/sbin $path)
+fpath=(/opt/homebrew/share/zsh/site-functions $fpath)
+
+path=(/opt/homebrew/opt/openjdk/bin "$HOME/.local/bin" $path)
+export PATH
+
 export EDITOR="nvim"
-export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
-export PATH="$HOME/.local/bin:$PATH"
 export EZA_CONFIG_DIR="$HOME/.config/eza"
-alias ssh="kitty +kitten ssh"
 
-
-# Homebrew
-eval "$(/opt/homebrew/bin/brew shellenv)"
+# kitten ssh only works inside kitty
+[[ "$TERM" == "xterm-kitty" ]] && alias ssh="kitty +kitten ssh"
 
 # ========================================
-# 🧩 Completion / Autosuggestions
+# 📜 History
 # ========================================
+HISTFILE="$HOME/.zsh_history"
+HISTSIZE=50000
+SAVEHIST=50000
+setopt SHARE_HISTORY HIST_IGNORE_ALL_DUPS HIST_IGNORE_SPACE HIST_REDUCE_BLANKS
+
+# ========================================
+# 🧩 Completion
+# ========================================
+# All fpath additions must come before compinit.
+fpath=("$HOME/.docker/completions" $fpath)
+
 autoload -Uz compinit
-compinit -u
+# Full security check + dump rebuild at most once a day; otherwise use cache.
+() {
+  setopt local_options extended_glob
+  if [[ -n $HOME/.zcompdump(#qN.mh+24) || ! -e $HOME/.zcompdump ]]; then
+    compinit -u
+  else
+    compinit -C -u
+  fi
+}
 
-# Menu select for completions
-autoload -Uz menu-select
-zmodload zsh/complist
+# FZF key bindings: Ctrl-R history, Ctrl-T files, Alt-C cd.
+# Must load before fzf-tab, otherwise fzf takes over <Tab>.
+command -v fzf >/dev/null && source <(fzf --zsh)
 
-bindkey '^I' menu-complete
-bindkey "$terminfo[kcbt]" reverse-menu-complete
-bindkey -M menuselect '^I' menu-complete
-bindkey -M menuselect "$terminfo[kcbt]" reverse-menu-complete
-bindkey -M menuselect '^[[D' .backward-char
-bindkey -M menuselect '^[[C' .forward-char
-bindkey -M menuselect '^M' .accept-line
-
-# Extra completions
-fpath+=("/opt/homebrew/share/zsh-completions")
+# fzf-tab (after compinit and fzf, before widget-wrapping plugins). Owns <Tab>.
+[[ -f "$ZSH_CFG_DIR/fzf-tab/fzf-tab.plugin.zsh" ]] && source "$ZSH_CFG_DIR/fzf-tab/fzf-tab.plugin.zsh"
 
 # Autosuggestions
-if [ -f /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
+[[ -f /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]] &&
   source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-fi
-
-# fzf-tab
-[ -f ~/.zsh_plugins/fzf-tab/fzf-tab.plugin.zsh ] && source ~/.zsh_plugins/fzf-tab/fzf-tab.plugin.zsh
-
-# Syntax highlighting (must be last)
-if [ -f /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
-  source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-fi
 
 # ========================================
 # 🔍 FZF
 # ========================================
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 alias fzf='fzf --preview "bat --color=always --style=numbers --line-range=:500 {}"'
 
 # ========================================
@@ -109,15 +122,19 @@ alias tree='tre'
 alias zshrc="nvim ~/.zshrc"
 alias so="source ~/.zshrc"
 
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+# Only meaningful inside iTerm2
+[[ "$TERM_PROGRAM" == "iTerm.app" && -e "$HOME/.iterm2_shell_integration.zsh" ]] &&
+  source "$HOME/.iterm2_shell_integration.zsh"
 
-# Git Stuff
-autoload -Uz compinit && compinit
-autoload -Uz add-zsh-hook
-autoload -Uz vcs_info
-
+# ========================================
+# 🌿 Git prompt
+# ========================================
+autoload -Uz add-zsh-hook vcs_info
 add-zsh-hook precmd vcs_info
 
+# Branch in cyan; green = staged changes, red = unstaged changes.
+# (The extra untracked-files `git status` hook was dropped: it ran a second
+# full status before every prompt and was the main source of prompt lag.)
 zstyle ':vcs_info:*' enable git
 zstyle ':vcs_info:*' formats " %F{cyan}%c%u(%b)%f"
 zstyle ':vcs_info:*' actionformats " %F{cyan}%c%u(%b)%f %a"
@@ -125,29 +142,36 @@ zstyle ':vcs_info:*' stagedstr "%F{green}"
 zstyle ':vcs_info:*' unstagedstr "%F{red}"
 zstyle ':vcs_info:*' check-for-changes true
 
-zstyle ':vcs_info:git*+set-message:*' hooks git-untracked
-
-+vi-git-untracked() {
-  if git --no-optional-locks status --porcelain 2> /dev/null | grep -q "^??"; then
-    hook_com[staged]+="%F{red}"
-  fi
-}
-
 setopt PROMPT_SUBST
-export PROMPT='%n:%1~$vcs_info_msg_0_ %# '
+PROMPT='%n:%1~$vcs_info_msg_0_ %# '
 
+# ========================================
+# 🧰 Toolchains
+# ========================================
+# opam
+[[ -r "$HOME/.opam/opam-init/init.zsh" ]] && source "$HOME/.opam/opam-init/init.zsh" >/dev/null 2>&1
 
-# BEGIN opam configuration
-# This is useful if you're using opam as it adds:
-#   - the correct directories to the PATH
-#   - auto-completion for the opam binary
-# This section can be safely removed at any time if needed.
-[[ ! -r '/Users/depakborhara/.opam/opam-init/init.zsh' ]] || source '/Users/depakborhara/.opam/opam-init/init.zsh' > /dev/null 2> /dev/null
-# END opam configuration
-# The following lines have been added by Docker Desktop to enable Docker CLI completions.
-fpath=(/Users/depakborhara/.docker/completions $fpath)
-autoload -Uz compinit
-(( ${+_comps[docker]} )) || compinit
-# End of Docker CLI completions
-#
 alias ilab-start='ssh -MNf ilab'
+
+# fnm
+FNM_PATH="/opt/homebrew/opt/fnm/bin"
+if [ -d "$FNM_PATH" ]; then
+  eval "$(fnm env --shell zsh)"
+fi
+
+# >>> juliaup initialize >>>
+
+# !! Contents within this block are managed by juliaup !!
+
+path=("${HOME}/.juliaup/bin" $path)
+export PATH
+# Tab completion for juliaup and julia channel selection
+[ -f "${HOME}/.julia/juliaup/completions/zsh.zsh" ] && source "${HOME}/.julia/juliaup/completions/zsh.zsh"
+
+# <<< juliaup initialize <<<
+
+# ========================================
+# Syntax highlighting (must be last)
+# ========================================
+[[ -f /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] &&
+  source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
