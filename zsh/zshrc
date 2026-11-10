@@ -184,9 +184,23 @@ setopt PROMPT_SUBST
 PROMPT='%n:%1~$vcs_info_msg_0_ %# '
 
 # ========================================
+# 🎓 ilab (shared SSH connection, see ~/.ssh/config ControlMaster)
+# ========================================
+# Log in once in the background; ssh / scp / rsync / nvim scp:// reuse it
+# for an hour. Skips logging in again if the connection is already up.
+ilab-start() {
+  command ssh -O check ilab 2>/dev/null && { echo "ilab: already connected"; return; }
+  command ssh -fN ilab && echo "ilab: connected (shared for 1h after last use)"
+}
+alias ilab-status='command ssh -O check ilab'
+alias ilab-stop='command ssh -O exit ilab'
+# Copy files: ilab-get <remote path> [local dir] / ilab-put <local> <remote dir>
+ilab-get() { command scp -r "ilab:$1" "${2:-.}"; }
+ilab-put() { command scp -r "$1" "ilab:${2:-~}"; }
+
+# ========================================
 # 🧰 Toolchains
 # ========================================
-alias ilab-start='ssh -MNf ilab'
 
 # fnm
 FNM_PATH="/opt/homebrew/opt/fnm/bin"
