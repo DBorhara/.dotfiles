@@ -18,6 +18,11 @@ local mason_path = home .. "/.local/share/nvim/mason/packages/jdtls"
 local launcher = vim.fn.glob(mason_path .. "/plugins/org.eclipse.equinox.launcher_*.jar")
 local config_os = mason_path .. "/config_mac"
 
+-- java-debug-adapter (Mason) lets nvim-dap debug Java through jdtls
+local debug_jars = vim.fn.glob(
+    home .. "/.local/share/nvim/mason/packages/java-debug-adapter/extension/server/com.microsoft.java.debug.plugin-*.jar",
+    true, true)
+
 local config = {
     cmd = {
         "java",
@@ -34,7 +39,16 @@ local config = {
     },
     root_dir = root_dir,
     init_options = {
-        bundles = {},
+        bundles = debug_jars,
     },
+    on_attach = function()
+        if #debug_jars > 0 then
+            if _G.UserDapSetup then _G.UserDapSetup() end -- see plugin/dap.lua
+            -- Registers a "Debug (Attach)" config and one launch config per
+            -- main class, so <leader>dc offers "Launch <YourClass>".
+            jdtls.setup_dap({ hotcodereplace = "auto" })
+            require("jdtls.dap").setup_dap_main_class_configs()
+        end
+    end,
 }
 jdtls.start_or_attach(config)

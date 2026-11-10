@@ -6,6 +6,8 @@ require('catppuccin').setup({
     transparent_background = false,
     integrations = {
         blink_cmp = true,
+        dap = true,
+        dap_ui = true,
         mason = true,
         native_lsp = { enabled = true },
         render_markdown = true,
