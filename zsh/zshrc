@@ -101,9 +101,9 @@ alias ls='eza -al --hyperlink --icons --git -G --group-directories-first --time-
 alias cfgeza="nvim ~/.config/eza"
 
 # ========================================
-# 🪟 WezTerm
+# 🐱 kitty
 # ========================================
-alias cfgwezterm="nvim ~/.config/wezterm/wezterm.lua"
+alias cfgkitty="nvim ~/.config/kitty/kitty.conf"
 
 # ========================================
 # 🧱 TMUX
