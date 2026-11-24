@@ -19,6 +19,7 @@ vim.pack.add({ 'https://github.com/nvim-treesitter/nvim-treesitter' })
 local parsers = {
     'bash',
     'c',
+    'css',
     'html',
     'java',
     'javascript',
@@ -27,6 +28,7 @@ local parsers = {
     'markdown_inline',
     'python',
     'query',
+    'regex', -- Snacks picker highlights regex searches
     'tsx',
     'typescript',
     'vim',
