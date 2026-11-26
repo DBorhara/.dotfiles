@@ -253,3 +253,8 @@ export PATH
 # ========================================
 [[ -f /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] &&
   source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# Homebrew Python 3.12 first on PATH (`python`, `pip` -> 3.12).
+# Fixed path instead of $(brew --prefix python@3.12): same result, no brew call.
+path=(/opt/homebrew/opt/python@3.12/libexec/bin $path)
+export PATH
